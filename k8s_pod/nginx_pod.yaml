@@ -4,9 +4,10 @@ metadata:
   labels:
     app: my-nginx-lbl
   name: my-nginx-pod
+  namespace: nginx-testing
 spec: 
   containers:
     - name: my-nginx-cont
-      image: nginx:1.22.1
+      image: nginx:latest
       ports: 
         - containerPort: 80
