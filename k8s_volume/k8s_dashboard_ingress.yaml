@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k8s-ingress
+  namespace: kube-system 
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prodv1"
+    kubernetes.io/ingressClassName: "nginx"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  tls:
+  - hosts:
+    - k8s.cheakautomate.online
+    secretName: cheak-ingress-tls
+  rules:
+  - host: k8s.cheakautomate.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubernetes-dashboard
+            port:
+              number: 443
