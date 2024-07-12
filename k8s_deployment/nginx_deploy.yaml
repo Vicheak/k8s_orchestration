@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: specialized-deployment
+  name: my-nginx-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: specialized-app
-  template:
+      app: my-nginx-deployment-lbl
+  template:sd
     metadata:
       labels:
-        app: specialized-app
+        app: my-nginx-deployment-lbl
     spec:
       containers:
-      - name: nginx
-        image: nginx
+      - name: my-nginx-cont
+        image: nginx:latest
         ports:
         - containerPort: 80
       nodeSelector:
