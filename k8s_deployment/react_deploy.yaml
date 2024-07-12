@@ -6,14 +6,14 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: react-deploy
+      app: react-deploy-lbl
   template:
     metadata:
       labels:
-        app: react-deploy
+        app: react-deploy-lbl
     spec:
       containers:
-      - name: react-cont
-        image: vicheak/reactjs-app:latest
-        ports:
-        - containerPort: 80
+        - name: react-cont
+          image: vicheak/reactjs-app:latest
+          ports:
+            - containerPort: 80
