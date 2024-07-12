@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: nginx-deploy
+  labels: 
+    app: nginx-deploy-lbl
+    tier: nginx-deploy-lbl
+spec:
+  replicas: 3
+  strategy: 
+    # type: Recreate or RollingUpdate (default)
+    rollingUpdate:  
+      # Create or Remove at the same time
+      maxSurge: 1 # Create default 25%
+      maxUnavailable: 1 # Remove default 25%
+  minReadySeconds: 5
+  # When Pod ready and waits 5s
+  selector: 
+    matchLabels:
+      tier: nginx-web-server # ReplicaSet selects Pod
+  template: 
+    metadata: 
+      labels: 
+        tier: nginx-web-server
+    spec: 
+      containers: 
+        - name: nginx-cont
+          image: nginx:latest
+          ports: 
+            - containerPort: 80

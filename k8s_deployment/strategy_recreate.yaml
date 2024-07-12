@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: nginx-deploy
+  labels: 
+    app: nginx-label-deployment
+spec:
+  replicas: 5
+  strategy: 
+    type: Recreate 
+  minReadySeconds: 5
+  selector: 
+    matchLabels:
+      app: nginx-label-pod
+  template: 
+    metadata: 
+      labels: 
+        app: nginx-label-pod
+    spec: 
+      containers: 
+        - name: nginx-cont
+          image: nginx:latest
+          ports: 
+            - containerPort: 80
