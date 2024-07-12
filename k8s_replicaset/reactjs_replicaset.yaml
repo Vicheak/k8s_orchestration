@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  namespace: reactjs-testing
+  name: my-reactjs-replicaset
+  labels:
+    app: my-reactjs-lbl
+    tier: frontend-ui
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      tier: frontend-ui
+  template:
+    metadata:
+      labels:
+        tier: frontend-ui
+    spec:
+      containers:
+        - name: my-reactjs-cont
+          image: vicheak/reactjs-app:latest
+          ports:
+            - containerPort: 80
