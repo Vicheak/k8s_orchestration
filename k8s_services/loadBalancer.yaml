@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-svc-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: nginx-app-lbl
+  ports:
+  - name: nginx-app-port
+    port: 80 
+    targetPort: 80 
+    nodePort: 30011
