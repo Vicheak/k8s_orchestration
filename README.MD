@@ -52,4 +52,3 @@ spec:
         hardware: high-spec
 
 ```
-![alt text](image.png)

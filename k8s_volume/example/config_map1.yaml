@@ -1,0 +1,27 @@
+# No ConfigMap
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deploy
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: postgres-app
+  template:
+    metadata:
+      labels:
+        app: postgres-app
+    spec:
+      containers:
+        - name: postgres-cont
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            # - name: POSTGERS_USER
+            #   value: "vicheak"
+            - name: POSTGRES_PASSWORD
+              value: "123"
+            # - name: POSTGRES_DB 
+            #   value: "test_db"

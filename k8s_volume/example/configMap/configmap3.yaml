@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: index-configmap
+data:
+  index.html: |-
+    <!DOCTYPE html>
+      <html>
+        <head>
+        <title>My Simple HTML Page</title>
+        </head>
+
+        <body>
+          <h1>Welcome to Kubernetes Cluster</h1>
+          <p>Testing...</p>
+          <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+          </ul>
+        </body>
+      </html>
