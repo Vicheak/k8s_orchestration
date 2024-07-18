@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-app-cont
-          image: vicheak/spring-app:1
+          image: vicheak/spring-app:latest
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -37,4 +37,4 @@ spec:
       port: 8080
       targetPort: 8080
       nodePort: 30005
-  type: NodePort            
+  type: NodePort
