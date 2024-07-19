@@ -27,7 +27,7 @@ spec:
       volumes:
         - name: spring-volume
           nfs:
-            server: 10.104.0.2
+            server: 10.104.0.2 # use nfs mater server
             path: /opt/nfs/data/
 ---
 apiVersion: v1
