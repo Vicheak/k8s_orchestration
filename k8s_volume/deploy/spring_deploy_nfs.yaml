@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-app-cont
-          image: vicheak/spring-app:1
+          image: vicheak/spring-app:latest
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -27,7 +27,7 @@ spec:
       volumes:
         - name: spring-volume
           nfs:
-            server: 10.149.0.4
+            server: 10.104.0.2
             path: /opt/nfs/data/
 ---
 apiVersion: v1
