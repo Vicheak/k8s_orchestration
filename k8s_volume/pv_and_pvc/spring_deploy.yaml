@@ -22,9 +22,8 @@ spec:
               mountPath: /workspace
       volumes:
         - name: spring-volume
-          nfs:
-            server: 10.104.0.2 # use nfs master server
-            path: /opt/nfs/data/
+          persistentVolumeClaim:
+            claimName: my-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -38,5 +37,4 @@ spec:
       port: 8080
       targetPort: 8080
       nodePort: 30005
-  type: NodePort            
-  # type: ClusterIP
+  type: NodePort
