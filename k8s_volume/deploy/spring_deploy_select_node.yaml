@@ -12,6 +12,8 @@ spec:
       labels:
         app: spring-app
     spec:
+      nodeSelector: 
+        group: workers
       containers:
         - name: spring-app-cont
           image: vicheak/spring-app:latest
@@ -20,14 +22,10 @@ spec:
           volumeMounts:
             - name: spring-volume
               mountPath: /workspace
-      # volumes:
-      # - name: spring-volume
-      #   persistentVolumeClaim:
-      #     claimName: my-pvc
       volumes:
         - name: spring-volume
           nfs:
-            server: 10.104.0.2 # use nfs master server
+            server: 10.104.0.2
             path: /opt/nfs/data/
 ---
 apiVersion: v1
@@ -42,5 +40,4 @@ spec:
       port: 8080
       targetPort: 8080
       nodePort: 30005
-  type: NodePort            
-  # type: ClusterIP
+  type: NodePort
