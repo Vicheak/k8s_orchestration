@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spring-ingress
+spec:
+  tls:
+  - hosts:
+    - spring.cheakautomate.online
+    secretName: spring-ingress-tls
+  rules:
+  - host: spring.cheakautomate.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: spring-service
+            port:
+              number: 8080

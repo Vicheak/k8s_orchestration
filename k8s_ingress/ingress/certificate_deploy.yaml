@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-spring-cert
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  dnsNames:
+    - spring.cheakautomate.online
+  secretName: spring-ingress-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

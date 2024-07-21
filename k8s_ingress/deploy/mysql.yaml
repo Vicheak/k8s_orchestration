@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+spec:
+  selector:
+    matchLabels:
+      app: mysql-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql-app
+    spec:
+      # nodeSelector:
+      #     task: master
+      containers:
+      - image: mysql
+        name: mysql-cont
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: wordpress
+        - name: MYSQL_DATABASE
+          value: wordpress
+        - name: MYSQL_USER
+          value: wordpress
+        - name: MYSQL_PASSWORD
+          value: wordpress
+        ports:
+        - containerPort: 3306
+          name: mysql-cont
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-storage
+        hostPath:
+          path: /home/vicheak/mysql-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+spec:
+  ports:
+    - port: 3306
+      #targetPort: 3306
+      #protocol: TCP
+  selector:
+    app: mysql-app
+  type: ClusterIP
