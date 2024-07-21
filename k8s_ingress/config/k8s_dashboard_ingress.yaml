@@ -4,14 +4,14 @@ metadata:
   name: k8s-ingress
   namespace: kube-system 
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prodv1"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     kubernetes.io/ingressClassName: "nginx"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   tls:
   - hosts:
     - k8s.cheakautomate.online
-    secretName: cheak-ingress-tls
+    secretName: k8s-ingress-tls
   rules:
   - host: k8s.cheakautomate.online
     http:
