@@ -1,11 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: spring-ingress
-  # annotations: # additional configuration for ingress nginx controller
-    # nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: multi-ingress
 spec:
   rules:
+  - host: web.cheakautomate.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-svc
+            port:
+              number: 80
   - host: spring.cheakautomate.online
     http:
       paths:
