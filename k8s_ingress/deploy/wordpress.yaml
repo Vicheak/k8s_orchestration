@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: wordpress-deploy
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: wordpress-app
@@ -18,18 +19,18 @@ spec:
       containers:
       - image: wordpress
         name: wordpress-cont
-        ports:
-          - containerPort: 80
         envFrom:
           - configMapRef: 
               name: wordpress-config
+        ports:
+          - containerPort: 80 
         volumeMounts:
         - name: wordpress-storage
           mountPath: /var/www/html
       volumes:
-      - name: wordpress-storage
-        hostPath:
-          path: /home/vicheak/wordpress-data
+        - name: wordpress-storage
+          persistentVolumeClaim:
+            claimName: wordpress-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -43,3 +44,27 @@ spec:
       targetPort: 80
       protocol: TCP
   type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingressClassName: "nginx"
+spec:
+  tls:
+  - hosts:
+    - cms.cheakautomate.online
+    secretName: wordpress-ingress-tls
+  rules:
+  - host: cms.cheakautomate.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wordpress-svc
+            port:
+              number: 80
