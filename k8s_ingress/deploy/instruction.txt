@@ -1,9 +1,9 @@
 Exercise Instrucion:
 
-1. Create Pipeline to deploy Wordpress with Mysql Services.
-  a. Deploy with Specific nodes.
-  b. Use Secret for all Environments in Mysql Deployment.
-  c. Use Configmap for all Environments in Wordpress Deployment.
+1. Create Pipeline to deploy Wordpress with Mysql Services
+  a. Deploy with Specific nodes
+  b. Use Secret for all Environments in Mysql Deployment
+  c. Use Configmap for all Environments in Wordpress Deployment
   d. Use NFS for Mysql Deployment
   e. Use PV and PVC for Wordpress
   f. Copy Yaml files from Jenkins server to Kubernetes server
