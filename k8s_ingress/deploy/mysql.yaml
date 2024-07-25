@@ -48,7 +48,30 @@ spec:
     app: mysql-app
   ports:
     - port: 3306
-      targetPort: 3306
-      nodePort: 30004 
       protocol: TCP
   type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mysql-ingress
+  namespace: wordpress-deploy
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingressClassName: "nginx"
+spec:
+  tls:
+  - hosts:
+    - cms.cheakautomate.online
+    secretName: mysql-ingress-tls
+  rules:
+  - host: cms.cheakautomate.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mysql-svc
+            port:
+              number: 3306
