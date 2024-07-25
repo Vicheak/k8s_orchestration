@@ -4,8 +4,8 @@ Exercise Instrucion:
   a. Deploy with Specific nodes
   b. Use Secret for all Environments in Mysql Deployment
   c. Use Configmap for all Environments in Wordpress Deployment
-  d. Use NFS for Wordpress Deployment
-  e. Use PV and PVC for Wordpress
+  d. Use NFS for Mysql Deployment @Todo : permission
+  e. Use PV and PVC for Mysql @Todo
   f. Copy Yaml files from Jenkins server to Kubernetes server
   g. Run those Yaml files in Kubernetes server
 

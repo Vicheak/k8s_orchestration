@@ -1,25 +1,27 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: wordpress-pv
+  name: mysql-pv
+  namespace: wordpress-deploy
 spec:
   capacity:
-    storage: 20Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteMany
-  storageClassName: nfs-sharing
+  storageClassName: nfs-sharing-mysql
   nfs:
     server: 10.104.0.2
-    path: /opt/nfs/data/wordpress
----    
+    path: /opt/nfs/data/mysql/
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: wordpress-pvc
+  name: mysql-pvc
+  namespace: wordpress-deploy
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 20Gi
-  storageClassName: nfs-sharing
+      storage: 10Gi
+  storageClassName: nfs-sharing-mysql

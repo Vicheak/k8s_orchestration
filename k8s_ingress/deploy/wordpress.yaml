@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordpress-deploy
+  namespace: wordpress-deploy
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: wordpress-app
@@ -15,7 +15,7 @@ spec:
         app: wordpress-app
     spec:
       nodeSelector:
-        task: worker
+        task: cms-service
       containers:
       - image: wordpress
         name: wordpress-cont
@@ -23,25 +23,27 @@ spec:
           - configMapRef: 
               name: wordpress-config
         ports:
-          - containerPort: 80 
+          - containerPort: 80
         volumeMounts:
-        - name: wordpress-storage
-          mountPath: /var/www/html
+          - name: wordpress-storage
+            mountPath: /var/www/html
       volumes:
         - name: wordpress-storage
-          persistentVolumeClaim:
-            claimName: wordpress-pvc
+          hostPath:
+            path: /home/vicheak/wordpress-data
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: wordpress-svc
+  namespace: wordpress-deploy
 spec:
   selector:
     app: wordpress-app
   ports:
     - port: 80
       targetPort: 80
+      nodePort: 30005
       protocol: TCP
   type: NodePort
 ---
@@ -49,6 +51,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wordpress-ingress
+  namespace: wordpress-deploy
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     kubernetes.io/ingressClassName: "nginx"
