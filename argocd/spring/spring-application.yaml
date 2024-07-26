@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-app
-          image: vicheak/spring-app:17
+          image: vicheak/spring-app:18
           ports:
             - containerPort: 8080
           volumeMounts:
