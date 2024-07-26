@@ -14,16 +14,16 @@ spec:
     spec:
       containers:
         - name: spring-app
-          image: vicheak/reactjs-app:latest
+          image: vicheak/spring-app:latest
           ports:
-            - containerPort: 80
-      #     volumeMounts:
-      #       - name: spring-volume
-      #         mountPath: /workspace
-      # volumes:
-      #   - name: spring-volume
-      #     persistentVolumeClaim:
-      #       claimName: my-pvc
+            - containerPort: 8080
+          volumeMounts:
+            - name: spring-volume
+              mountPath: /workspace
+      volumes:
+        - name: spring-volume
+          persistentVolumeClaim:
+            claimName: my-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -34,10 +34,9 @@ spec:
     app: spring-app
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30005
-  type: NodePort
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -51,7 +50,7 @@ spec:
   tls:
   - hosts:
     - spring.cheakautomate.online
-    secretName: react-ingess-tls
+    secretName: spring-ingess-tls
   rules:
   - host: spring.cheakautomate.online
     http:
@@ -62,4 +61,4 @@ spec:
           service:
             name: spring-service
             port:
-              number: 80
+              number: 8080
