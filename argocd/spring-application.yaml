@@ -50,7 +50,7 @@ spec:
   tls:
   - hosts:
     - spring.cheakautomate.online
-    secretName: spring-ingress-tls
+    secretName: react-ingess-tls
   rules:
   - host: spring.cheakautomate.online
     http:
