@@ -49,10 +49,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - spring.cheakautomate.online
+    - openapi.cheakautomate.online
     secretName: spring-ingess-tls
   rules:
-  - host: spring.cheakautomate.online
+  - host: openapi.cheakautomate.online
     http:
       paths:
       - path: /
