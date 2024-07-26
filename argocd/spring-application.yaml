@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-app
-          image: vicheak/reactjs:latest
+          image: vicheak/reactjs-app:latest
           ports:
             - containerPort: 80
       #     volumeMounts:
