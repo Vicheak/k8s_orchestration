@@ -1,0 +1,21 @@
+# declarative style
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spring-application
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Vicheak/k8s_orchestration.git
+    targetRevision: main
+    path: argocd/spring
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=false
