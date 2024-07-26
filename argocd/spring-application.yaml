@@ -36,7 +36,7 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-  type: ClusterIP      
+  type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -49,10 +49,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - spring.cheakautomate.online
-    secretName: spring-ingress-tls
+    - openapi.cheakautomate.online
+    secretName: spring-ingess-tls
   rules:
-  - host: spring.cheakautomate.online
+  - host: openapi.cheakautomate.online
     http:
       paths:
       - path: /
