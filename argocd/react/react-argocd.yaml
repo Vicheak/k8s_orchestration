@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Vicheak/k8s_orchestration.git
     targetRevision: main
-    path: argocd
+    path: argocd/react
   destination:
     namespace: default
     server: https://kubernetes.default.svc
