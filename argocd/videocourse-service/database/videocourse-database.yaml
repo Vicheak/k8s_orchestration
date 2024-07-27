@@ -22,6 +22,8 @@ spec:
       labels:
         app: videocourse-database
     spec:
+      nodeSelector:
+        task: worker
       containers:
         - name: videocourse-database
           image: postgres:latest
