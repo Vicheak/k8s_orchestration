@@ -52,7 +52,7 @@ spec:
       port: 5432
       targetPort: 5432
       # nodePort: 30010
-  type: ClusterIP
+  type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
