@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: videocourse-database-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: videocourse-database
+  template:
+    metadata:
+      labels:
+        app: videocourse-database
+    spec:
+      containers:
+        - name: videocourse-database
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: video-course-database-volume
+              mountPath: "/var/lib/postgresql/data"
+      volumes:
+        - name: video-course-database-volume
+          hostPath:
+            path: /video-course-database
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: videocourse-database-service
+spec:
+  selector:
+    app: videocourse-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: videocourse-database-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingressClassName: "nginx"
+spec:
+  tls:
+  - hosts:
+    - db.cheakautomate.online
+    secretName: videocourse-database-ingess-tls
+  rules:
+  - host: db.cheakautomate.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: videocourse-database-service
+            port:
+              number: 5432
