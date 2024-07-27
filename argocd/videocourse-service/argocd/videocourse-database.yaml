@@ -1,3 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: videocourse-database-secret
+type: Opaque
+stringData:
+  POSTGRES_USER: "videocoursepostgres"
+  POSTGRES_PASSWORD: "videocoursepostgres@123"
+  POSTGRES_DB: "videocoursedb"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,6 +27,9 @@ spec:
           image: postgres:latest
           ports:
             - containerPort: 5432
+          envFrom: 
+            - secretRef:
+                name: videocourse-database-secret
           volumeMounts:
             - name: video-course-database-volume
               mountPath: "/var/lib/postgresql/data"
