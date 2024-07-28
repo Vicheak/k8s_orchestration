@@ -23,7 +23,7 @@ spec:
       volumes:
         - name: videocourse-api-volume
           hostPath:
-            path: /workspace
+            path: /opt/nfs/data/workspace
 ---
 apiVersion: v1
 kind: Service
