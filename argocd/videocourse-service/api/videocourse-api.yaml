@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: videocourse-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: videocourse-api
+  template:
+    metadata:
+      labels:
+        app: videocourse-api
+    spec:
+      containers:
+        - name: videocourse-api
+          image: vicheak/videocourse-api:latest
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: videocourse-api-volume
+              mountPath: /workspace
+      volumes:
+        - name: videocourse-api-volume
+          persistentVolumeClaim:
+            claimName: my-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: videocourse-api-service
+spec:
+  selector:
+    app: videocourse-api
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: videocourse-api-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingressClassName: "nginx"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+spec:
+  tls:
+  - hosts:
+    - api.cheakautomate.online
+    secretName: videocourse-api-ingess-tls
+  rules:
+  - host: api.cheakautomate.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: videocourse-api-service
+            port:
+              number: 8080
