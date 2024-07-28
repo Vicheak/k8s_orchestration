@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: videocourse-api
-          image: vicheak/videocourse-api:latest
+          image: vicheak/videocourse-api:1.1.0
           ports:
             - containerPort: 8080
           volumeMounts:
