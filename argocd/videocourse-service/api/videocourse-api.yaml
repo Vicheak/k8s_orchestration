@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: videocourse-api
-          image: vicheak/videocourse-api
+          image: vicheak/videocourse-api:latest
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -22,8 +22,8 @@ spec:
               mountPath: /workspace
       volumes:
         - name: videocourse-api-volume
-          persistentVolumeClaim:
-            claimName: my-pvc
+          hostPath:
+            path: /workspace
 ---
 apiVersion: v1
 kind: Service
