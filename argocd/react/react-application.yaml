@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: react-cont
-        image: vicheak/reactjs-app:latest
+        image: vicheak/reactjs-app:42
         ports:
         - containerPort: 80
 ---
