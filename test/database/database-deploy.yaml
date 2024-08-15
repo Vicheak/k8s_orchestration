@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: student-dbserver-secret
+type: Opaque
+stringData:
+  POSTGRES_USER: "vicheakdemo"
+  POSTGRES_PASSWORD: "vicheakdemo@123"
+  POSTGRES_DB: "student_management_db"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-dbserver-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student-dbserver
+  template:
+    metadata:
+      labels:
+        app: student-dbserver
+    spec:
+      nodeSelector:
+        task: worker
+      containers:
+        - name: student-dbserver
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          envFrom: 
+            - secretRef:
+                name: student-dbserver-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-dbserver-service
+spec:
+  selector:
+    app: student-dbserver
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+      nodePort: 30015
+  type: NodePort
+---

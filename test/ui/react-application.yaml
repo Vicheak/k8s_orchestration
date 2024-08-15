@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-ui-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: student-ui
+  template:
+    metadata:
+      labels:
+        app: student-ui
+    spec:
+      containers:
+      - name: student-ui
+        image: vicheak/student-ui:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-ui-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: student-ui
+  ports:
+  - name: student-ui-port
+    port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: student-ui-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingressClassName: "nginx"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+spec:
+  tls:
+  - hosts:
+    - ui.cheakautomate.online
+    secretName: student-ui-ingess-tls
+  rules:
+  - host: ui.cheakautomate.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: student-ui-svc
+            port:
+              number: 80
