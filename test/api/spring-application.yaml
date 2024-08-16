@@ -20,7 +20,7 @@ spec:
                     volumeMounts:
           volumeMounts:
             - name: student-api-volume
-              mountPath: /keys
+              mountPath: /app/keys
       volumes:
         - name: student-api-volume
           hostPath:
