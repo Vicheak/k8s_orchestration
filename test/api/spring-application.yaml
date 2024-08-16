@@ -17,7 +17,6 @@ spec:
           image: vicheak/student-api:3
           ports:
             - containerPort: 8080
-                    volumeMounts:
           volumeMounts:
             - name: student-api-volume
               mountPath: /app/keys
