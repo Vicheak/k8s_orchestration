@@ -24,7 +24,7 @@ spec:
       volumes:
         - name: student-api-volume
           hostPath:
-            path: /opt/nfs/data/workspace/token_keys
+            path: /opt/nfs/data/app/keys
 ---
 apiVersion: v1
 kind: Service
