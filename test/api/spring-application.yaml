@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: student-api
-          image: vicheak/student-api:4
+          image: vicheak/student-api:5
           ports:
             - containerPort: 8080
           volumeMounts:
