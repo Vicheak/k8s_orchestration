@@ -12,6 +12,8 @@ spec:
       labels:
         app: student-api
     spec:
+      nodeSelector:
+        task: worker
       containers:
         - name: student-api
           image: vicheak/student-api:7
@@ -49,10 +51,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - openapi.cheakautomate.online
+    - app.cheakautomate.online
     secretName: student-api-ingess-tls
   rules:
-  - host: openapi.cheakautomate.online
+  - host: app.cheakautomate.online
     http:
       paths:
       - path: /
