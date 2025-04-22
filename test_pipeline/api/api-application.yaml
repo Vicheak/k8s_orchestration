@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: core-api
-          image: vicheak/core-api:prod-1.0.10
+          image: vicheak/core-api:prod-1.0.11
           ports:
             - containerPort: 8080
 ---
