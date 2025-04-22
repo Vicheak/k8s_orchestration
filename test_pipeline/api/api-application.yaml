@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: core-api
-          image: vicheak/core-api:prod-1.0.12
+          image: vicheak/core-api:prod-1.0.13
           ports:
             - containerPort: 8080
 ---
@@ -28,7 +28,7 @@ spec:
   selector:
     app: core-api
   ports:
-  - port: 8080
-    targetPort: 8080
-    nodePort: 30013
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30013
   type: NodePort
