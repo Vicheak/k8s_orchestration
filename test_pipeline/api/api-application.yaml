@@ -29,6 +29,6 @@ spec:
     app: core-api
   ports:
     - protocol: TCP
-      nodePort: 32300
+      nodePort: 31300
       targetPort: 8080
   type: NodePort
