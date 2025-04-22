@@ -15,20 +15,6 @@ spec:
     spec:
       containers:
         - name: core-api
-          image: vicheak/core-api:prod-1.0.7
+          image: vicheak/core-api:prod-1.0.8
           ports:
             - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: core-api-service
-  namespace: myapp
-spec:
-  selector:
-    app: core-api
-  ports:
-    - protocol: TCP
-      nodePort: 32300
-      targetPort: 8080
-  type: NodePort
