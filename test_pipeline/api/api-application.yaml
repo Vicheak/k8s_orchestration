@@ -4,7 +4,7 @@ metadata:
   name: core-api-deployment
   namespace: myapp
 spec:
-  replicas: 1
+  replicas: 20
   selector:
     matchLabels:
       app: core-api
